@@ -1,0 +1,5 @@
+%h1 All hotels
+
+- @hotels.each do |hotel|
+  %p 
+    = link_to hotel.title, hotel_path(hotel)

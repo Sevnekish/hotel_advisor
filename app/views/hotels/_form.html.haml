@@ -1,0 +1,6 @@
+= simple_form_for @hotel do |f|
+  = f.input :title, label: "Hotel name"
+  = f.input :breakfast_included, inline_label: "Breakfast included"
+  = f.input :room_description, label: "Room description"
+  = f.input :room_price, label: "Price"
+  = f.button :submit
