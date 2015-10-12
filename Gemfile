@@ -13,6 +13,8 @@ gem 'haml'
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'simple_form'
+gem 'carrierwave'
+gem 'mini_magick'
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'

@@ -15,6 +15,11 @@
           = link_to hotels_path  do
             %span.glyphicon.glyphicon-home{"aria-hidden" => "true"}
             Hotels
+        - if user_signed_in?
+          %li
+            = link_to new_hotel_path  do
+              %span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+              Add hotel
 
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?

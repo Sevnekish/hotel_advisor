@@ -1,7 +1,21 @@
+- provide(:title, @hotel.title)
+
+= image_tag @hotel.image.url(:preview)
+= image_tag @hotel.image.url
+
 %h2= @hotel.title
 %h1= @hotel.breakfast_included
 %h1= @hotel.room_description
 %h1= @hotel.room_price
 
-= link_to 'Edit book', edit_hotel_path(@hotel)
-= link_to 'Delete book', hotel_path(@hotel), method: :delete, data: { confirm: "Are you sure?" }
+%hr
+
+%p= @hotel.address.country
+%p= @hotel.address.state
+%p= @hotel.address.city
+%p= @hotel.address.street
+
+-if user_signed_in?
+  -if @hotel.user_id == current_user.id
+    = link_to 'Edit hotel', edit_hotel_path(@hotel)
+    = link_to 'Delete hotel', hotel_path(@hotel), method: :delete, data: { confirm: "Are you sure?" }
