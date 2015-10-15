@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151008200432) do
+ActiveRecord::Schema.define(version: 20151014214335) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "country"
@@ -33,6 +33,15 @@ ActiveRecord::Schema.define(version: 20151008200432) do
     t.integer  "user_id"
     t.decimal  "rating"
     t.string   "image"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.text     "body"
+    t.integer  "hotel_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "rating"
   end
 
   create_table "users", force: :cascade do |t|
