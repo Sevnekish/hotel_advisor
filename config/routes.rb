@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   
   resources :hotels do
-    resources :reviews
+    resources :reviews, except: [:show, :index]
   end
 
   root 'static_pages#home'

@@ -1,5 +1,8 @@
 class ReviewsController < ApplicationController
   before_action :find_hotel
+  before_action :find_review, only: [:edit, :update, :destroy]
+  before_filter :authenticate_user!
+
   def new
     @review = Review.new
   end
@@ -16,6 +19,22 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def destroy
+    @review.destroy
+    redirect_to hotel_path(@hotel)
+  end
+
+  def update
+    if @review.update(review_params)
+      redirect_to hotel_path(@hotel)
+    else
+      render 'edit'
+    end
+  end
+
   private
 
     def review_params
@@ -24,5 +43,9 @@ class ReviewsController < ApplicationController
 
     def find_hotel
       @hotel = Hotel.find(params[:hotel_id])
+    end
+
+    def find_review
+      @review = Review.find(params[:id])
     end
 end

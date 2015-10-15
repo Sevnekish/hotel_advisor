@@ -19,7 +19,7 @@ class Hotel < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
   has_one :address, dependent: :destroy
-  has_many :reviews
+  has_many :reviews, dependent: :destroy
 
   accepts_nested_attributes_for :address
 

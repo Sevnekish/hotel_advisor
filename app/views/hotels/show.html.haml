@@ -4,6 +4,9 @@
 = image_tag @hotel.image.url
 
 %h2= @hotel.title
+%h2 Average Rating
+%div.average-rating{"data-score" => "#{@average_rating}"}
+%em= pluralize(@hotel.reviews.count, 'review')
 %h1= @hotel.breakfast_included
 %h1= @hotel.room_description
 %h1= @hotel.room_price
@@ -16,9 +19,13 @@
 %p= @hotel.address.street
 
 -if user_signed_in?
-  -if @hotel.user_id == current_user.id
+  -if @hotel.user == current_user
     = link_to 'Edit hotel', edit_hotel_path(@hotel)
     = link_to 'Delete hotel', hotel_path(@hotel), method: :delete, data: { confirm: "Are you sure?" }
 
 %div
-  = link_to "Add Review", new_hotel_review_path(@hotel)
+  = render @hotel.reviews
+  
+-if user_signed_in?
+  %div
+    = link_to "Add Review", new_hotel_review_path(@hotel)

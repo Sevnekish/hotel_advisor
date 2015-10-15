@@ -4,12 +4,11 @@ class HotelsController < ApplicationController
   #TODO: add before filter, where check if user is current_user for edit, update and destroy actions
 
   def index
-    @hotels = Hotel.all.order("created_at DESC")
+    @hotels = Hotel.all.order("created_at DESC").paginate(page: params[:page], :per_page => 3)
   end
 
   def new
     @hotel = current_user.hotels.build
-    # @hotel = Hotel.new
     @hotel.build_address
   end
 
@@ -17,7 +16,7 @@ class HotelsController < ApplicationController
     @hotel = current_user.hotels.build(hotel_params)
 
     if @hotel.save
-      redirect_to root_path
+      redirect_to hotels_path
     else
       # redirect_to new_hotel_path
       render 'new'
@@ -28,6 +27,11 @@ class HotelsController < ApplicationController
   end
 
   def show
+    if @hotel.reviews.blank?
+      @average_rating = 0
+    else
+      @average_rating = @hotel.reviews.average(:rating).round(2)
+    end
   end
 
   def update

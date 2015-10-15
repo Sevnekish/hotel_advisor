@@ -1,5 +1,6 @@
-= simple_form_for([@hotel, @hotel.reviews.build]) do |f|
- 
-  = f.input :rating
+/ = simple_form_for([@hotel, @hotel.reviews.build]) do |f|
+= simple_form_for ([@hotel, @review]) do |f|
+  %div#rating-input{"data-score" => "#{@review.rating}"}
+    %label Rating
   = f.input :body
   = f.button :submit

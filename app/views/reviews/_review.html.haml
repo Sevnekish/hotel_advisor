@@ -1,0 +1,7 @@
+%div.review-rating{"data-score" => "#{review.rating}"}
+%p= review.body
+
+-if user_signed_in?
+  -if review.user == current_user
+    = link_to "Edit", edit_hotel_review_path(review.hotel, review)
+    = link_to "Delete", hotel_review_path(review.hotel, review), method: :delete, data: { confirm: "Are you sure?"}
