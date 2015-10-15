@@ -14,4 +14,15 @@
 class Review < ActiveRecord::Base
   belongs_to :hotel
   belongs_to :user
+
+  after_create :recalculate_hotel_rating
+  after_update :recalculate_hotel_rating
+  after_destroy :recalculate_hotel_rating
+
+  default_scope -> { order(created_at: :desc) }
+
+  private
+    def recalculate_hotel_rating
+      self.hotel.recalculate_rating
+    end
 end

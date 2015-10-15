@@ -5,7 +5,7 @@
 
 %h2= @hotel.title
 %h2 Average Rating
-%div.average-rating{"data-score" => "#{@average_rating}"}
+%div.average-rating{"data-score" => "#{@hotel.rating}"}
 %em= pluralize(@hotel.reviews.count, 'review')
 %h1= @hotel.breakfast_included
 %h1= @hotel.room_description

@@ -2,6 +2,7 @@ class ReviewsController < ApplicationController
   before_action :find_hotel
   before_action :find_review, only: [:edit, :update, :destroy]
   before_filter :authenticate_user!
+  before_filter :correct_user, only: [:edit, :update, :destroy]
 
   def new
     @review = Review.new
@@ -47,5 +48,10 @@ class ReviewsController < ApplicationController
 
     def find_review
       @review = Review.find(params[:id])
+    end
+
+    def correct_user
+      @review = current_user.reviews.find_by(id: params[:id])
+      redirect_to root_url if @review.nil?
     end
 end

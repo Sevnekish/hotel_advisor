@@ -10,8 +10,8 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  user_id            :integer
-#  rating             :decimal(, )
 #  image              :string
+#  rating             :decimal(, )      default(0.0)
 #
 
 require 'rails_helper'

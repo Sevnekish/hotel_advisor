@@ -1,10 +1,10 @@
 class HotelsController < ApplicationController
   before_action :find_hotel, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, except: [:index, :show]
-  #TODO: add before filter, where check if user is current_user for edit, update and destroy actions
+  before_filter :correct_user, only: [:edit, :update, :destroy]
 
   def index
-    @hotels = Hotel.all.order("created_at DESC").paginate(page: params[:page], :per_page => 3)
+    @hotels = Hotel.higher_rating.order("created_at DESC").paginate(page: params[:page], :per_page => 5)
   end
 
   def new
@@ -16,9 +16,8 @@ class HotelsController < ApplicationController
     @hotel = current_user.hotels.build(hotel_params)
 
     if @hotel.save
-      redirect_to hotels_path
+      redirect_to hotel_path(@hotel)
     else
-      # redirect_to new_hotel_path
       render 'new'
     end
   end
@@ -27,11 +26,6 @@ class HotelsController < ApplicationController
   end
 
   def show
-    if @hotel.reviews.blank?
-      @average_rating = 0
-    else
-      @average_rating = @hotel.reviews.average(:rating).round(2)
-    end
   end
 
   def update
@@ -67,5 +61,10 @@ class HotelsController < ApplicationController
 
     def find_hotel
       @hotel = Hotel.find(params[:id])
+    end
+
+    def correct_user
+      @hotel = current_user.hotels.find_by(id: params[:id])
+      redirect_to root_url if @hotel.nil?
     end
 end
