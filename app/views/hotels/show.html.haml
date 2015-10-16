@@ -1,7 +1,6 @@
 - provide(:title, @hotel.title)
 
-= image_tag @hotel.image.url(:preview)
-= image_tag @hotel.image.url
+= image_tag @hotel.image.url(:preview), :class => "hotel-image"
 
 %h2= @hotel.title
 %h2 Average Rating
