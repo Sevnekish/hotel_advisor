@@ -5,3 +5,38 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
 }
+
+.hotel-preview {
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid #E1E1E1;
+  border-radius: 4px;
+  text-align: center;
+
+  &:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+
+  p {
+    font-size: 20px;
+    text-align: center;
+  }
+}
+
+.hotels-title {
+  text-align: center;
+}
+
+.hotel-view {
+  padding: 5px;
+  border: 1px solid #E1E1E1;
+  border-radius: 4px;
+
+  .hotel-top {
+    text-align: center;
+  }
+
+  .controls {
+    text-align: center;
+  }
+}

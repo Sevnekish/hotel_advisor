@@ -1,30 +1,74 @@
 - provide(:title, @hotel.title)
 
-= image_tag @hotel.image.url(:preview), :class => "hotel-image"
+.row
+  .col-md-4
+    .hotel-view
+      .hotel-top
+        = image_tag @hotel.image.url(:preview), :class => "hotel-image"
 
-%h2= @hotel.title
-%h2 Average Rating
-%div.average-rating{"data-score" => "#{@hotel.rating}"}
-%em= pluralize(@hotel.reviews.count, 'review')
-%h1= @hotel.breakfast_included
-%h1= @hotel.room_description
-%h1= @hotel.room_price
+        %h1= @hotel.title
+        %div.average-rating{"data-score" => "#{@hotel.rating}"}
+        %em= pluralize(@hotel.reviews.count, 'review')
 
-%hr
+      .table-responsive
+        %table.table
+          %tbody
 
-%p= @hotel.address.country
-%p= @hotel.address.state
-%p= @hotel.address.city
-%p= @hotel.address.street
+            %tr
+              %td
+                %strong Breackfast:
+              %td #{ @hotel.breakfast_included ? '' : 'not' }included
 
--if user_signed_in?
-  -if @hotel.user == current_user
-    = link_to 'Edit hotel', edit_hotel_path(@hotel)
-    = link_to 'Delete hotel', hotel_path(@hotel), method: :delete, data: { confirm: "Are you sure?" }
+            %tr
+              %td
+                %strong Room description:
+              %td= @hotel.room_description
 
-%div
-  = render @hotel.reviews
-  
--if user_signed_in?
-  %div
-    = link_to "Add Review", new_hotel_review_path(@hotel)
+            %tr
+              %td
+                %strong Room price:
+              %td= @hotel.room_price
+
+      %h2 Address
+      .table-responsive
+        %table.table
+          %tbody
+
+            %tr
+              %td
+                %strong Country:
+              %td= @hotel.address.country
+
+            %tr
+              %td
+                %strong State:
+              %td= @hotel.address.state
+
+            %tr
+              %td
+                %strong City:
+              %td= @hotel.address.city
+
+            %tr
+              %td
+                %strong Street:
+              %td= @hotel.address.street
+
+      -if user_signed_in?
+        -if @hotel.user == current_user
+          .controls
+            .btn-group
+              = link_to 'Edit hotel', edit_hotel_path(@hotel), :class => "btn btn-default"
+              = link_to 'Delete hotel', hotel_path(@hotel), method: :delete, data: { confirm: "Are you sure?" },  :class => "btn btn-default"
+
+  .col-md-8
+    .row
+      .col-md-12
+        %h2 Reviews
+        -if user_signed_in?
+          %div
+            = link_to new_hotel_review_path(@hotel), :class => "btn btn-success" do
+              %span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+              Add Review
+    .row
+      = render @hotel.reviews

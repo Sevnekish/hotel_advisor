@@ -14,6 +14,7 @@ class ReviewsController < ApplicationController
     @review.user_id = current_user.id
 
     if @review.save
+      flash[:success] = "New review added successfully!"
       redirect_to hotel_path(@hotel)
     else
       render 'new'
@@ -24,12 +25,17 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    @review.destroy
-    redirect_to hotel_path(@hotel)
+    if @review.destroy
+      flash[:success] = "Review deleted successfully!"
+      redirect_to hotel_path(@hotel)
+    else
+      redirect_to hotel_path(@hotel)
+    end
   end
 
   def update
     if @review.update(review_params)
+      flash[:success] = "Review updated successfully!"
       redirect_to hotel_path(@hotel)
     else
       render 'edit'

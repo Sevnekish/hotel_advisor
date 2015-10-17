@@ -1,7 +1,10 @@
 - provide(:title, "Hotels")
 
-%h1 All hotels
+%h1.hotels-title All hotels
+%hr/
 
-= render @hotels
+.row
+  = render @hotels
 
-= will_paginate
+.row
+  = will_paginate

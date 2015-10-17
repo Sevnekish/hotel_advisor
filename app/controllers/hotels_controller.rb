@@ -4,7 +4,7 @@ class HotelsController < ApplicationController
   before_filter :correct_user, only: [:edit, :update, :destroy]
 
   def index
-    @hotels = Hotel.higher_rating.order("created_at DESC").paginate(page: params[:page], :per_page => 5)
+    @hotels = Hotel.higher_rating.order("created_at DESC").paginate(page: params[:page], :per_page => 8)
   end
 
   def new
@@ -16,6 +16,7 @@ class HotelsController < ApplicationController
     @hotel = current_user.hotels.build(hotel_params)
 
     if @hotel.save
+      flash[:success] = "New hotel added successfully!"
       redirect_to hotel_path(@hotel)
     else
       render 'new'
@@ -30,6 +31,7 @@ class HotelsController < ApplicationController
 
   def update
     if @hotel.update(hotel_params)
+      flash[:success] = "Hotel updated successfully!"
       redirect_to hotel_path(@hotel)
     else
       render 'edit'
@@ -37,8 +39,12 @@ class HotelsController < ApplicationController
   end
 
   def destroy
-    @hotel.destroy
-    redirect_to hotels_path
+    if @hotel.destroy
+      flash[:success] = "Hotel deleted successfully!"
+      redirect_to hotels_path
+    else
+      redirect_to hotel_path(@hotel)
+    end
   end
 
   private

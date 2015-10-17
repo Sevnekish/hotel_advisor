@@ -1,3 +1,6 @@
-%p 
-  = link_to hotel.title, hotel_path(hotel)
-%div.review-rating{"data-score" => "#{hotel.rating}"}
+%div{ :class => "col-md-#{current_page?(hotels_path) ? 3 : 12}" }
+  .hotel-preview
+    = link_to image_tag(hotel.image.url(:preview)), hotel_path(hotel)
+    %p 
+      = link_to hotel.title, hotel_path(hotel)
+    %div.review-rating{"data-score" => "#{hotel.rating}"}

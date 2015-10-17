@@ -30,7 +30,7 @@ class Hotel < ActiveRecord::Base
   validates :room_price,       presence: true
 
   def recalculate_rating
-    if self.reviews.nil?
+    if self.reviews.blank?
       self.rating = 0
     else
       self.rating = self.reviews.average(:rating).round(3)

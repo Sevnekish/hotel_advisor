@@ -1,11 +1,15 @@
-/ for home page
--if current_page?(root_url)
-  %p Review by #{current_user.email} for #{link_to review.hotel.title, hotel_path(review.hotel)}
-%div.review-rating{"data-score" => "#{review.rating}"}
-%p= review.body
-%p Written #{time_ago_in_words(review.updated_at)} ago
+.col-md-12
+  .review
+    -if current_page?(root_url)
+      %p Review by #{review.user.email} for #{link_to review.hotel.title, hotel_path(review.hotel)}
+    -else
+      %p Review by #{review.user.email}
+    %div.review-rating{"data-score" => "#{review.rating}"}
+    %p= review.body
+    %p Written #{time_ago_in_words(review.updated_at)} ago
 
--if user_signed_in?
-  -if review.user == current_user
-    = link_to "Edit", edit_hotel_review_path(review.hotel, review)
-    = link_to "Delete", hotel_review_path(review.hotel, review), method: :delete, data: { confirm: "Are you sure?"}
+    -if user_signed_in?
+      -if review.user == current_user
+        .btn-group
+          = link_to 'Edit', edit_hotel_review_path(review.hotel, review), :class => "btn btn-default"
+          = link_to 'Delete', hotel_review_path(review.hotel, review), method: :delete, data: { confirm: "Are you sure?" },  :class => "btn btn-default"

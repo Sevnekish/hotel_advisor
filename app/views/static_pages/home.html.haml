@@ -1,11 +1,15 @@
 - provide(:title, "Home page")
 
-%h1 Top 5 hotels
 
-= render @hotels
 
-%hr/
-
-%h1 Last reviews
-
-= render @reviews
+.row
+  .col-md-3
+    .row
+      .col-md-12
+        %h1 Top 5 hotels
+      = render @hotels
+  .col-md-9
+    .row
+      .col-md-12
+        %h1 Last reviews
+      = render @reviews
