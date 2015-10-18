@@ -23,8 +23,8 @@
 #
 
 class User < ActiveRecord::Base
-  has_many :hotels
-  has_many :reviews
+  has_many :hotels, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable

@@ -21,6 +21,12 @@ class Review < ActiveRecord::Base
 
   default_scope -> { order(created_at: :desc) }
 
+  validates :rating, presence: true, inclusion: { in: 1..5 }
+  validates :body,   presence: true, length: { in: 4..200 }
+  validates :hotel,  presence: true
+  validates :user,  presence: true
+  validates_uniqueness_of :hotel_id, scope: :user_id
+
   private
     def recalculate_hotel_rating
       self.hotel.recalculate_rating

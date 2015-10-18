@@ -33,11 +33,12 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rspec'
   gem 'database_cleaner'
   gem 'selenium-webdriver'
   gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'shoulda-matchers'
+  gem "shoulda-callback-matchers"
 end
 
 group :production do

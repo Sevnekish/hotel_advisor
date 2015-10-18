@@ -66,9 +66,10 @@
       .col-md-12
         %h2 Reviews
         -if user_signed_in?
-          %div
-            = link_to new_hotel_review_path(@hotel), :class => "btn btn-success" do
-              %span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
-              Add Review
+          -if ! @hotel.reviewed_by?(current_user)
+            %div
+              = link_to new_hotel_review_path(@hotel), :class => "btn btn-success" do
+                %span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+                Add Review
     .row
       = render @hotel.reviews

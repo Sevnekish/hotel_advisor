@@ -22,12 +22,11 @@ class Hotel < ActiveRecord::Base
 
   scope :higher_rating, -> { order(rating: :desc) }
 
-
   accepts_nested_attributes_for :address
   validates_associated :address
-  validates :title,            presence: true
-  validates :room_description, presence: true
-  validates :room_price,       presence: true
+  validates :title,              presence: true, length: { in: 2..40 }
+  validates :room_description,   presence: true, length: { in: 4..140 }
+  validates :room_price,         presence: true, numericality: true
 
   def recalculate_rating
     if self.reviews.blank?
@@ -36,5 +35,9 @@ class Hotel < ActiveRecord::Base
       self.rating = self.reviews.average(:rating).round(3)
     end
     self.save
+  end
+
+  def reviewed_by?( user )
+    ! self.reviews.find_by_user_id(user.id).nil?
   end
 end
