@@ -1,9 +1,9 @@
 class ReviewsController < ApplicationController
   before_action :find_hotel
   before_action :find_review, only: [:edit, :update, :destroy]
-  before_filter :authenticate_user!
-  before_filter :correct_user, only: [:edit, :update, :destroy]
-  before_filter :hotel_reviewed, only: [:new, :create]
+  before_action :authenticate_user!
+  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :hotel_reviewed, only: [:new, :create]
 
   def new
     @review = Review.new

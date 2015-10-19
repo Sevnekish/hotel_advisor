@@ -1,10 +1,10 @@
 class HotelsController < ApplicationController
   before_action :find_hotel, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!, except: [:index, :show]
-  before_filter :correct_user, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
-    @hotels = Hotel.higher_rating.order("created_at DESC").paginate(page: params[:page], :per_page => 8)
+    @hotels = Hotel.higher_rating.paginate(page: params[:page], :per_page => 8)
   end
 
   def new
