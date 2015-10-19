@@ -15,9 +15,9 @@
 class Address < ActiveRecord::Base
   belongs_to :hotel
 
-  validates :country, presence: true, length: { in: 2..20 }
+  validates :country, presence: true, length: { in: 2..60 }
   validates :state,   presence: true, length: { in: 2..40 }
-  validates :city,    presence: true, length: { in: 2..20 }
+  validates :city,    presence: true, length: { in: 2..40 }
   validates :street,  presence: true, length: { in: 2..100 }
 
 end

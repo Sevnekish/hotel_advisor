@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.feature "User pages", type: :feature do
+RSpec.feature "User", type: :feature do
 
   let(:valid_attributes) { {
-    email:    "valid@mail.com",
-    password: "qwerty123456",
-    password_confirmation: "qwerty123456"
+      email:    "valid@mail.com",
+      password: "qwerty123456",
+      password_confirmation: "qwerty123456"
     }
   }
   before (:each) do
@@ -23,7 +23,10 @@ RSpec.feature "User pages", type: :feature do
 
     it { should have_link 'Sign up', count: 2  }
     it { should have_link 'Log in' }
+    it { should have_content("Email") }
+    it { should have_content("Password") }
     it { should have_link 'Forgot your password?' }
+    it { should_not have_link 'Add hotel' }
 
     scenario "with existed user data" do
 
@@ -103,8 +106,8 @@ RSpec.feature "User pages", type: :feature do
 
     scenario "with valid data" do
 
-      fill_in 'Email', :with => @new_user_attr[:email], :match => :prefer_exact
-      fill_in 'Password', :with => @new_user_attr[:password], :match => :prefer_exact
+      fill_in 'Email',                 :with => @new_user_attr[:email], :match => :prefer_exact
+      fill_in 'Password',              :with => @new_user_attr[:password], :match => :prefer_exact
       fill_in 'Password confirmation', :with => @new_user_attr[:password_confirmation]
 
       click_button 'Sign up'
@@ -122,8 +125,8 @@ RSpec.feature "User pages", type: :feature do
 
     scenario "with already existed user data" do
 
-      fill_in 'Email', :with => valid_attributes[:email]
-      fill_in 'Password', :with => valid_attributes[:password], :match => :prefer_exact
+      fill_in 'Email',                 :with => valid_attributes[:email]
+      fill_in 'Password',              :with => valid_attributes[:password], :match => :prefer_exact
       fill_in 'Password confirmation', :with => valid_attributes[:password_confirmation]
 
       click_button 'Sign up'
