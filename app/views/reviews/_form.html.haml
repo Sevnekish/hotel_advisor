@@ -2,5 +2,5 @@
 = simple_form_for ([@hotel, @review]) do |f|
   %div#rating-input{"data-score" => "#{@review.rating}"}
     %label Rating
-  = f.input :body
+  = f.input :body, label: "Comment"
   = f.button :submit
